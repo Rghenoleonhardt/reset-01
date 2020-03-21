@@ -14,7 +14,7 @@ public class Arcano extends Personagem {
     }
 
 
-    public void imprimirEstado() {
+    void imprimirEstado() {
 
         System.out.println("Nome: " + this.nome + " | Vida: " + this.vida + " | Mana: " + this.mana);
     }

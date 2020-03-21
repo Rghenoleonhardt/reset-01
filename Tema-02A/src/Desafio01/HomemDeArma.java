@@ -2,6 +2,8 @@ package Desafio01;
 
 public class HomemDeArma extends Personagem {
 
+    Arma arma;
+
     protected HomemDeArma(String nome, double vida, double ataque, double defesa) {
         super(nome, vida, ataque, defesa);
     }
@@ -33,6 +35,10 @@ public class HomemDeArma extends Personagem {
             System.out.println(alvo.nome + " morreu!");
         }
 
+    }
+
+    void equipar(Arma armaUtilizada) {
+        this.arma = armaUtilizada;
     }
 }
 
