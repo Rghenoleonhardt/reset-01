@@ -2,8 +2,6 @@ package br.com.cwi.tinderevolution.console;
 
 import java.util.Scanner;
 
-import br.com.cwi.tinderevolution.dominio.Musica;
-
 public class App {
 
     public static void main(String[] args) {
