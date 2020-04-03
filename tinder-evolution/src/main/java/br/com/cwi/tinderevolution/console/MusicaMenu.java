@@ -76,7 +76,7 @@ public class MusicaMenu {
         System.out.print("Dia de Lançamento: ");
         int dia = scanner.nextInt();
 
-        System.out.println("Estilo: ");
+        System.out.println("\nEstilo: ");
         System.out.println("[ F ] FUNK");
         System.out.println("[ P ] PAGODE");
         System.out.println("[ R ] ROCK");
@@ -110,6 +110,8 @@ public class MusicaMenu {
                 estiloMusical = EstiloMusical.FUNK;
                 break;
         }
+
+        System.out.println("\nMúsica criada: " + nome + " - [" + artista + "]");
 
         Musica musica = new Musica(nome, artista, LocalDate.of(ano, mes, dia), estiloMusical);
 

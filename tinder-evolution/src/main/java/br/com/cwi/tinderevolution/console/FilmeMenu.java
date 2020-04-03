@@ -5,6 +5,7 @@ import br.com.cwi.tinderevolution.dominio.Filme;
 import br.com.cwi.tinderevolution.gerenciador.FilmeGerenciador;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class FilmeMenu {
@@ -46,7 +47,7 @@ public class FilmeMenu {
                 case 'D':
                     deletar();
                     break;
-                case "X":
+                case 'X':
                     System.out.println("...");
                     break;
                 default:
@@ -74,7 +75,7 @@ public class FilmeMenu {
         System.out.println("Dia de Lançamento: ");
         int dia = scanner.nextInt();
 
-        System.out.println("Categoria: ");
+        System.out.println("\nCategoria: ");
         System.out.println("\n[ D ] Drama;");
         System.out.println("[ C ] Comédia;");
         System.out.println("[ S ] Suspense;");
@@ -111,8 +112,98 @@ public class FilmeMenu {
         System.out.println("Sinopse: ");
         String sinopse = scanner.next();
 
+        System.out.println("\nFilme criado: " + titulo + " - [" + diretor + "] - " + sinopse);
+
         Filme filme = new Filme(titulo, diretor,LocalDate.of(ano,mes,dia),categoriaFilme, sinopse);
         return filme;
     }
+
+    public Filme create(){
+
+        System.out.println("\nCriação de Filme...");
+
+        Filme filme = inserirDadosFilme();
+
+        return gerenciador.salvar(filme);
+    }
+
+    public Filme editar(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEdição de Filme...");
+        System.out.println("Qual Filme deseja editar?");
+
+        List <Filme> filmes = gerenciador.listar();
+        for(Filme filme : filmes){
+            System.out.println("[" + filme.getId() + "] - " + filme.getTitulo());
+        }
+
+        System.out.print("> ");
+        int id = scanner.nextInt(); scanner.nextLine();
+
+        Filme atualizacao = inserirDadosFilme();
+
+        Filme filmeAtualizado = gerenciador.editar(id, atualizacao);
+
+        if(filmeAtualizado == null){
+            System.out.println("Filme não encontrado!");
+        }else{
+            System.out.println(filmeAtualizado);
+        }
+        return filmeAtualizado;
+    }
+
+    private List<Filme> listar(){
+
+        System.out.println("\nListagem de Filme...");
+        List<Filme> filmes = gerenciador.listar();
+
+        for(Filme filme : filmes){
+            System.out.println(filme);
+        }
+        return filmes;
+    }
+
+    private void procurar(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nPesquisa de Filme...");
+        System.out.println("Qual o código do Filme?");
+
+        System.out.print("> ");
+        int id = scanner.nextInt();
+
+        Filme filme = gerenciador.procurar(id);
+
+        if (filme == null){
+            System.out.println("Filme não encontrado!");
+        }else{
+            System.out.println(filme);
+        }
+
+    }
+
+    private void deletar(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nExclusão de Filme...");
+        System.out.println("Qual Filme deseja deletar?");
+
+        List<Filme> filmes = gerenciador.listar();
+        for(Filme filme : filmes){
+            System.out.println("[" + filme.getId() + "] - " + filme.getTitulo());
+        }
+
+        System.out.print("> ");
+        int id = scanner.nextInt();
+
+        if(gerenciador.deletar(id)){
+            System.out.println("Filme deletado.");
+        }else{
+            System.out.println("Filme não encontrado.");
+        }
+
+    }
+
 
 }
